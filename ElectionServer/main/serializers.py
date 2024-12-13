@@ -3,7 +3,7 @@ from .models import UserModel
 
 
 class UserSerializer(ModelSerializer):
-    
+
     class Meta:
         model = UserModel
-        fields = ('id', 'id_card', 'election', 'choice')
+        fields = ("id", "id_card", "election", "choice")

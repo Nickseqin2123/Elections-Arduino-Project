@@ -20,9 +20,9 @@ class UserModelView(ModelViewSet):
         data: dict = request.POST
                 
         id_card: str = data['id_card']
-        election: str = data['election'][0]
-        choice: str = data['choice'][0]
-        
+        election: str = data['election']
+        choice: str = data['choice']
+
         user: UserModel = UserModel.objects.select_related('election').filter(id_card=id_card).first()
                 
         if user:
