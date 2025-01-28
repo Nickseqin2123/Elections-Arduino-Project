@@ -18,4 +18,4 @@ class HashMiddleware:
         if to_hash == from_base.password:
             return response
         
-        return JsonResponse({'response': 'Тут ничего интересного. Иди отсюда, путник'}, status=403)
+        return JsonResponse({'response': 'Тут ничего интересного. Иди отсюда, путник'}, status=403, json_dumps_params={'ensure_ascii': False})

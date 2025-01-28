@@ -7,6 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from choice.models import ChoiceModel
 from main.models import UserModel
+from main.errors import ERRORS
 from .models import ElectionModel
 from .serializers import ElectionSerializer
 
@@ -26,7 +27,9 @@ class ElectionModelView(ModelViewSet):
             election: ElectionModel = ElectionModel.objects.get(pk=get_data['id'])
             choices: ChoiceModel = election.choices.all()
         except Exception as er:
-            return Response({'response': er.args[0]})
+            main_error = er.args[0].split()
+            stringa = ERRORS[main_error[0]]
+            return Response({'response': stringa})
         
         data: dict = {
             'election': {
