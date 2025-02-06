@@ -72,7 +72,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'elections',
-        'PASSWORD': 'ZXCPUDGE228',
+        'PASSWORD': 'ZXCPUDGE228$',
         'PORT': 3306,
         'HOST': '127.0.0.1',
         'USER': 'root'

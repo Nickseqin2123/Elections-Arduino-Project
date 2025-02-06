@@ -16,6 +16,38 @@ class ElectionModelView(ModelViewSet):
     queryset = ElectionModel.objects.all()
     serializer_class = ElectionSerializer
     
+    
+    @action(
+        methods=['GET'],
+        detail=False
+    )
+    def elections(self, request: HttpRequest) -> Response:
+        elections_d = []
+        
+        try:
+            elections: ElectionModel = ElectionModel.objects.prefetch_related('choices').all()
+        except Exception as er:
+            main_error = er.args[0].split()
+            stringa = ERRORS[main_error[0]]
+            return Response({'response': stringa})
+        
+        for election in elections:
+            data = {
+                    'id': election.id,
+                    'election': election.name,
+                    'date': election.date_created,
+                    'choices': []
+                }
+            
+            for choice in election.choices.all():
+                data['choices'].append({'id': choice.id, 'name': choice.name})
+            
+            elections_d.append(data)
+            
+            
+        return Response({'response': elections_d})
+    
+    
     @action(
         methods=['GET'],
         detail=False
